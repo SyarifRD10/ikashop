@@ -46,19 +46,19 @@ $routes->group('detail_penjualan', function ($routes) {
 
 //stok barang
 $routes->get('stok_barang', 'StokBarang::index');
-$routes->get('/stok_barang/create', 'StokBarang::tambah');
-$routes->get('/stok_barang/create/(:num)', 'StokBarang::create/$1');
-$routes->post('/stok_barang/store', 'StokBarang::store');
-$routes->get('/stok_barang/edit/(:num)', 'StokBarang::edit/$1');
-$routes->post('/stok_barang/update/(:num)', 'StokBarang::edit/$1');
-$routes->delete('/stok_barang/delete/(:num)', 'StokBarang::delete/$1');
+$routes->get('stok_barang/create', 'StokBarang::tambah');
+$routes->get('stok_barang/create/(:num)', 'StokBarang::create/$1');
+$routes->post('stok_barang/store', 'StokBarang::store');
+$routes->get('stok_barang/edit/(:num)', 'StokBarang::edit/$1');
+$routes->post('stok_barang/update/(:num)', 'StokBarang::update/$1');
+$routes->delete('stok_barang/delete/(:num)', 'StokBarang::delete/$1');
 
 //penjualan
 $routes->get('penjualan', 'PenjualanController::index');
 $routes->get('penjualan/create', 'PenjualanController::create');
 $routes->post('penjualan/store', 'PenjualanController::store');
 $routes->get('penjualan/detail/(:num)', 'PenjualanController::detail/$1');
-$routes->get('penjualan/edit/(:num)', 'PenjualanController::edit/$1');
+$routes->get('penjualan/edit/(:num)', 'PenjualanController:edit/$1');
 $routes->post('penjualan/update/(:num)', 'PenjualanController::update/$1');
 $routes->get('penjualan/delete/(:num)', 'PenjualanController::delete/$1');
 

@@ -1,31 +1,39 @@
-<?= $this->extend('layouts/main') ?>
+<?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
 
-<h1>Edit Detail Pesanan</h1>
-<form action="<?= site_url('pembelian/update/' . $pembelian['id_pembelian']) ?>" method="post">
-    <div class="form-group">
-        <label>ID pembelian:</label>
-        <input type="number" name="id_pembelian" class="form-control" value="<?= $pembelian['id_pembelian'] ?>" required>
+<h1>Edit Penjualan</h1>
+
+<!-- Tampilkan pesan error jika ada -->
+<?php if (session()->getFlashdata('errors')): ?>
+    <div class="alert alert-danger">
+        <ul>
+            <?php foreach (session()->getFlashdata('errors') as $error): ?>
+                <li><?= esc($error) ?></li>
+            <?php endforeach; ?>
+        </ul>
     </div>
+<?php endif; ?>
+
+<form action="/penjualan/update/<?= $penjualan['id_penjualan'] ?>" method="post">
     <div class="form-group">
-        <label>Nama Supplier:</label>
-        <input type="number" name="id_supplier" class="form-control" value="<?= $pembelian['id_supplier'] ?>" required>
+        <label>Nama Pelanggan:</label>
+        <input type="text" value="<?= $penjualan['nama_pelanggan'] ?>" name="nama_penjualan" class="form-control" required>
     </div>
     <div class="form-group">
         <label>Tanggal Pembelian:</label>
-        <input type="number" name="tgl_pembelian" class="form-control" value="<?= $pembelian['tgl_pembelian'] ?>" required>
+        <input type="text" value="<?= $penjualan['tanggal_penjualan'] ?>" name="alamat" class="form-control" required>
     </div>
     <div class="form-group">
-        <label>ID Produk:</label>
-        <input type="number" name="id_produk" class="form-control" value="<?= $pembelian['id_produk'] ?>" required>
+        <label>Nama Produk:</label>
+        <input type="text" value="<?= $penjualan['nama_produk'] ?>" name="alamat" class="form-control" required>
     </div>
-
     <div class="form-group">
         <label>Jumlah:</label>
-        <input type="number" name="total_harga" class="form-control" value="<?= $pembelian['total_harga'] ?>" step="0.01" required>
+        <input type="number" value="<?= $penjualan['kuantitas'] ?>" name="telepon" class="form-control" required>
     </div>
-    <button type="submit" class="btn btn-success">Simpan</button>
-    <a href="<?= site_url('pembelian$pembelian') ?>" class="btn btn-secondary">Kembali</a>
+
+    <button type="submit" class="btn btn-success mr-3">Simpan</button>
+    <a href="/penjualan" class="btn btn-secondary">Kembali</a>
 </form>
 
 <?= $this->endSection() ?>

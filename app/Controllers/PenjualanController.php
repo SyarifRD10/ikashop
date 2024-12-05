@@ -90,7 +90,25 @@ class PenjualanController extends BaseController
 
         return redirect()->to('/penjualan');
     }
+    public function edit($id)
+    {
+        // Logika untuk menampilkan form edit penjualan
+        $data['penjualan'] = $this->PenjualanModel->find($id);
+        return view('penjualan/edit', $data);
+    }
 
+    public function ubah($id)
+    {
+        // Logika untuk mengubah penjualan
+        $data = $this->request->getPost();
+        if ($this->PenjualanModel->update($id, $data)) {
+            // Redirect ke halaman sukses atau tampilkan pesan sukses
+            return redirect()->to('/penjualan')->with('success', 'penjualan berhasil diubah.');
+        } else {
+            // Tampilkan pesan error
+            return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat mengubah data.');
+        }
+    }
     public function detail($id)
     {
         $data['pelanggan'] = $this->PenjualanModel->getPelangganById($id);

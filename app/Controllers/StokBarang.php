@@ -41,7 +41,7 @@ class StokBarang extends BaseController
         $data = $this->request->getPost(); // Ambil data dari form
         if ($this->stok_barang->save($data)) {
             // Redirect ke halaman sukses atau tampilkan pesan sukses
-            return redirect()->to('/stok_barang')->with('success', 'Data Stok Barang berhasil disimpan.');
+            return redirect()->to('stok_barang')->with('success', 'Data Stok Barang berhasil disimpan.');
         } else {
             // Tampilkan pesan error
             return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat menyimpan data.');
@@ -55,14 +55,14 @@ class StokBarang extends BaseController
         return view('stok_barang/edit', $data);
     }
 
-    public function ubah($id)
+    public function update($id)
     {
         // Logika untuk mengubah Stok Barang
         $data = $this->request->getPost();
 
         if ($this->stok_barang->update($id, $data)) {
             // Redirect ke halaman sukses atau tampilkan pesan sukses
-            return redirect()->to('/stok_barang')->with('success', 'Data Stok Barang berhasil diubah.');
+            return redirect()->to('stok_barang')->with('success', 'Data Stok Barang berhasil diubah.');
         } else {
             // Tampilkan pesan error
             return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan saat mengubah data.');
@@ -74,7 +74,7 @@ class StokBarang extends BaseController
         // Logika untuk menghapus data Stok Barang
         if ($this->stok_barang->delete($id)) {
             // Redirect ke halaman sukses atau tampilkan pesan sukses
-            return redirect()->to('/stok_barang')->with('success', 'Data Stok Barang berhasil dihapus.');
+            return redirect()->to('stok_barang')->with('success', 'Data Stok Barang berhasil dihapus.');
         } else {
             // Tampilkan pesan error
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus data.');

@@ -38,6 +38,7 @@
                     <td><?= $p['nama_produk'] ?></td>
                     <td><?= $p['kuantitas'] ?></td>
                     <td>
+                        <a href="/penjualan/edit/<?= $p['id_penjualan'] ?>" class="btn btn-danger">Edit</a>
                         <a href="/penjualan/detail/<?= $p['id_penjualan'] ?>" class="btn btn-info mr-3">Detail</a>
                         <a href="/penjualan/delete/<?= $p['id_penjualan'] ?>" class="btn btn-danger">Delete</a>
                     </td>

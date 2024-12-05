@@ -25,7 +25,7 @@
         <?php foreach ($produk as $p): ?>
             <div>
                 <input type="checkbox" name="produk[]" value="<?= $p['id_produk']; ?>" class="produk-checkbox my-2" data-produk-id="<?= $p['id_produk']; ?>">
-                <?= $p['nama_produk']; ?> - Harga: <?= $p['harga']; ?>
+                <?= $p['nama_produk']; ?> - Harga: Rp. <?= number_format($p['harga'], 0, ',', '.'); ?>
                 <div id="kuantitas-<?= $p['id_produk']; ?>" class="kuantitas-field my-2" style="display:none;">
                     <label for="kuantitas">Kuantitas:</label>
                     <input type="number" name="kuantitas[<?= $p['id_produk']; ?>]" class="form-control" min="1" value="1">

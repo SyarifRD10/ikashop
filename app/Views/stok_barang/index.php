@@ -1,71 +1,51 @@
-<?= $this->extend('layout') ?>
-<?= $this->section('content') ?>
+<?=$this->extend('layout')?>
+<?=$this->section('content')?>
 
-
-<h1>Daftar Stok <?= $produk['nama_produk'] ?></h1>
+<h1>Daftar Stok Barang</h1>
 
 <?php if (session()->getFlashdata('success')): ?>
     <div class="alert alert-success">
-        <?= session()->getFlashdata('success') ?>
+        <?=session()->getFlashdata('success')?>
     </div>
-<?php endif; ?>
-
-<form action="/stok_barang/store" method="post">
-    <table>
-        <tbody>
-            <tr>
-                <td>
-                    <label for="kategori_produk">Supplier:</label>
-                    <select name="id_supplier" id="kategori_produk" class="form-control" required>
-                        <option value="">Pilih Supplier</option>
-                        <?php if (!empty($supplier)): ?>
-                            <?php foreach ($supplier as $k): ?>
-                                <option value="<?= esc($k['id_supplier']) ?>"><?= esc($k['nama_supplier']) ?></option>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <option value="">Tidak ada supplier tersedia</option>
-                        <?php endif; ?>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="harga">Barang Masuk:</label>
-                    <input type="number" name="jumlah_barang_masuk" id="jumlah_barang_masuk" class="form-control" step="0.01" required>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <button type="submit" class="btn btn-primary mb-3">Tambah Stok</button>
-
-</form>
+<?php endif;?>
 
 <table class="table table-striped">
     <thead>
         <tr>
             <th>No</th>
+            <th>Nama Produk</th>
+            <th>Harga</th>
             <th>Jumlah Barang Masuk</th>
             <th>Jumlah Barang Keluar</th>
-            <th>Tanggal</th>
+            <th>Stok Tersedia</th>
             <th>Supplier</th>
+            <th>Tanggal</th>
             <th>Aksi</th>
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($produk as $index => $p): ?>
+        <?php if (!empty($stok_barang)): ?>
+            <?php foreach ($stok_barang as $index => $stok): ?>
+                <tr>
+                    <td><?=$index + 1?></td>
+                    <td><?=esc($stok['nama_produk'])?></td>
+                    <td><?=number_format($stok['harga'], 2, ',', '.')?> IDR</td>
+                    <td><?=$stok['jumlah_barang_masuk']?></td>
+                    <td><?=$stok['jumlah_barang_keluar']?></td>
+                    <td><?=$stok['stok_tersedia']?></td>
+                    <td><?=esc($stok['nama_supplier'])?></td>
+                    <td><?=date('d-m-Y', strtotime($stok['tanggal']))?></td>
+                    <td>
+                        <a href="/stok_barang/create/<?=$stok['id_produk']?>" class="btn btn-info">Detail</a>
+                    </td>
+                </tr>
+            <?php endforeach;?>
+        <?php else: ?>
             <tr>
-                <td><?= $index + 1 ?></td>
-                <td><?= $p['jumlah_barang_masuk'] ?></td>
-                <td><?= $p['jumlah_barang_keluar'] ?></td>
-                <td><?= $p['tanggal'] ?></td>
-                <td><?= $p['nama_supplier'] ?></td>
-                <td>
-                    <a href="/stok_barang/edit/<?= $p['id_produk'] ?>" class="btn btn-warning">Edit</a>
-                    <a href="/stok_barang/delete/<?= $p['id_produk'] ?>" class="btn btn-danger">Delete</a>
-                </td>
+                <td colspan="9" class="text-center">Tidak ada data stok barang tersedia</td>
             </tr>
-        <?php endforeach; ?>
+        <?php endif;?>
     </tbody>
 </table>
 
-<?= $this->endSection() ?>
+<?=$this->endSection()?>

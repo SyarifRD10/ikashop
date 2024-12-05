@@ -1,68 +1,57 @@
 <?= $this->extend('layout') ?>
 <?= $this->section('content') ?>
 
-<div class="container mt-5">
-    <h1>Ubah Stok Barangn</h1>
+<?php if (!empty($produk)): ?>
+    <h1>Edit Stok</h1>
+<?php endif; ?>
 
-    <!-- Tampilkan pesan error jika ada -->
-    <?php if (session()->getFlashdata('errors')): ?>
-        <div class="alert alert-danger">
-            <ul>
-                <?php foreach (session()->getFlashdata('errors') as $error): ?>
-                    <li><?= esc($error) ?></li>
+<?php if (session()->getFlashdata('success')): ?>
+    <div class="alert alert-success">
+        <?= session()->getFlashdata('success') ?>
+    </div>
+<?php endif; ?>
+
+<form action="/stok_barang/update/<?= esc($stok['id_stok']) ?>" method="post"> <!-- Action untuk update stok -->
+    <?= csrf_field() ?> <!-- CSRF protection -->
+
+    <input type="text" name="id_produk" value="<?= esc($stok['id_produk']); ?>" hidden>
+    <div class="form-group">
+        <label for="id_supplier">Supplier:</label>
+        <select name="id_supplier" id="id_supplier" class="form-control">
+            <option value="">Pilih Supplier</option>
+            <?php if (!empty($supplier)): ?>
+                <?php foreach ($supplier as $k): ?>
+                    <option value="<?= esc($k['id_supplier']) ?>"
+                        <?= ($stok['id_supplier'] == $k['id_supplier']) ? 'selected' : '' ?>>
+                        <?= esc($k['nama_supplier']) ?>
+                    </option>
                 <?php endforeach; ?>
-            </ul>
-        </div>
-    <?php endif; ?>
+            <?php else: ?>
+                <option value="">Tidak ada supplier tersedia</option>
+            <?php endif; ?>
+        </select>
+    </div>
 
-    <!-- Tampilkan pesan sukses jika ada -->
-    <?php if (session()->getFlashdata('success')): ?>
-        <div class="alert alert-success">
-            <?= session()->getFlashdata('success') ?>
-        </div>
-    <?php endif; ?>
+    <div class="form-group">
+        <label for="jumlah_barang_masuk">Barang Masuk:</label>
+        <input type="text" name="jumlah_barang_masuk" id="jumlah_barang_masuk" class="form-control" step="0.01"
+            value="<?= esc($stok['jumlah_barang_masuk']) ?>">
+    </div>
 
-    <form action="/stok_barang/update/<?= $stok_barang['id_stok'] ?>" method="post">
-        <?= csrf_field() ?> <!-- CSRF Protection -->
-        <table class="table table-striped">
-            <tbody>
-                <tr>
-                    <td>
-                        <label for="id_produk">Nama Produk:</label>
-                        <input type="text" name="nama_produk" id="id_produk" value="<?= $stok_barang['id_produk'] ?>" class="form-control" required>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="jumlah_barang_masuk">Barang Masuk:</label>
-                        <input type="number" name="jumlah_barang_masuk" id="harga" class="form-control" step="0.01" required>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="jumlah_barang_keluar">Barang Keluar:</label>
-                        <textarea name="number" id="jumlah_barang_keluar" class="form-control" required></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="tanggal">Tanggal:</label>
-                        <input type="date" name="tanggal" id="harga" class="form-control" step="0.01" required>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="nama_supplier">Nama Supplier:</label>
-                        <textarea name="text" id="nama_supplier" class="form-control" required></textarea>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="mt-4 mx-2">
-            <button type="submit" class="btn btn-success mr-3">Simpan</button>
-            <a href="/stok_barang" class="btn btn-secondary">Kembali</a>
+    <div class="form-group">
+        <label for="jumlah_barang_keluar">Barang Keluar:</label>
+        <input type="text" name="jumlah_barang_keluar" id="jumlah_barang_keluar" class="form-control" step="0.01"
+            value="<?= esc($stok['jumlah_barang_keluar']) ?>">
+    </div>
+
+    <div class="row">
+        <div class="col text-left">
+            <a href="/produk" class="btn btn-outline-warning">Back</a>
         </div>
-    </form>
-</div>
+        <div class="col text-right">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+    </div>
+</form>
 
 <?= $this->endSection() ?>

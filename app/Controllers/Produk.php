@@ -21,13 +21,12 @@ class Produk extends BaseController
     }
     public function index()
     {
-        // Logika untuk menampilkan daftar pelanggan
-        $data['produk'] = $this->kategori->getProdukKategori();
+        $data['produk'] = $this->produk->getProdukKategori();
+        // dd($data);
         return view('produk/index', $data);
     }
     public function tambah()
     {
-        // Logika untuk menampilkan form tambah produk
         $data['kategori'] = $this->kategori->findAll();
         $data['supplier'] = $this->supplier->findAll();
         return view('produk/create', $data);

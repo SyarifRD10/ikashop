@@ -7,7 +7,6 @@ use App\Models\DetailPenjualanModel;
 use App\Models\PelangganModel;
 use App\Models\PenjualanModel;
 use App\Models\ProdukModel;
-use CodeIgniter\HTTP\ResponseInterface;
 
 class PenjualanController extends BaseController
 {
@@ -26,7 +25,8 @@ class PenjualanController extends BaseController
 
     public function index()
     {
-        $data['penjualan'] = $this->PenjualanModel->getPenjualanAndDetail();
+        $data['penjualan'] = $this->PenjualanModel->getPenjualanWithDetails();
+        // dd($data);
         return view('penjualan/index', $data);
     }
 
@@ -50,13 +50,12 @@ class PenjualanController extends BaseController
             'nama_pelanggan' => $namaPelanggan,
             'email' => $email,
             'telepon' => $telepon,
-            'alamat' => $alamat
+            'alamat' => $alamat,
         ];
 
         $idPelanggan = $this->pelanggan->insert($dataPelanggan);
 
         $totalHarga = 0;
-
 
         if ($produkIds) {
             foreach ($produkIds as $idProduk) {

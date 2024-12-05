@@ -37,6 +37,7 @@
                             <th scope="col">Kuantitas</th>
                             <th scope="col">Harga Satuan</th>
                             <th scope="col">Sub Total</th>
+                            <th scope="col">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,8 +48,12 @@
                                 <td><?= $p['nama_produk'] ?></td>
                                 <td><?= $p['deskripsi'] ?></td>
                                 <td><?= $p['kuantitas'] ?></td>
-                                <td>Rp <?= number_format($p['harga_satuan'], 0, ',', '.') ?></td>
-                                <td>Rp <?= number_format($p['sub_total'], 0, ',', '.') ?></td>
+                                <td> <?= number_format($p['harga_satuan'], 0, ',', '.')?> IDR</td>
+                                <td> <?= number_format($p['sub_total'], 0, ',', '.')?> IDR</td>
+                                <td>
+                                    <a href="/detail_penjualan/edit/<?= $p['id_detail']; ?>" class="btn btn-outline-warning">Ubah</a>
+                                    <a href="/detail_penjualan/delete/<?= $p['id_detail']; ?>" class="btn btn-outline-danger">Hapus</a>
+                                </td>
                             </tr>
                             <?php $totalHarga += $p['sub_total']; ?>
                         <?php endforeach; ?>
@@ -58,7 +63,7 @@
 
             <div class="d-flex justify-content-between">
                 <h5><strong>Total Pembelian:</strong></h5>
-                <h5><strong>Rp <?= number_format($totalHarga, 0, ',', '.') ?></strong></h5>
+                <h5><strong> <?= number_format($totalHarga, 0, ',', '.') ?> IRD</strong></h5>
             </div>
         </div>
     </div>
